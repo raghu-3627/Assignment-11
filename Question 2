@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+
+struct Student {
+    string name;
+    int age;
+    char gender;
+    string branch;
+};
+
+int main() {
+    int size = 100;
+    Student* students = new Student[size]; // dynamic array of Student structures
+
+    cout << "Enter details of " << size << " students:\n";
+    for (int i = 0; i < size; i++) {
+        cout << "\nStudent " << i + 1 << ":\n";
+        cout << "Name: ";
+        cin >> students[i].name;
+        cout << "Age: ";
+        cin >> students[i].age;
+        cout << "Gender (M/F): ";
+        cin >> students[i].gender;
+        cout << "Branch: ";
+        cin >> students[i].branch;
+    }
+
+    int newSize = 200;
+    Student* resizedStudents = new Student[newSize];
+
+    for (int i = 0; i < size; i++) {
+        resizedStudents[i] = students[i];
+    }
+
+    for (int i = size; i < newSize; i++) {
+        resizedStudents[i].name = "N/A";
+        resizedStudents[i].age = 0;
+        resizedStudents[i].gender = 'N';
+        resizedStudents[i].branch = "N/A";
+    }
+
+    delete[] students;
+    students = resizedStudents;
+    size = newSize;
+
+    cout << "\nArray successfully resized to hold " << size << " students.\n";
+
+    cout << "\nFirst 5 student records:\n";
+    for (int i = 0; i < 5; i++) {
+        cout << "Name: " << students[i].name
+             << ", Age: " << students[i].age
+             << ", Gender: " << students[i].gender
+             << ", Branch: " << students[i].branch << endl;
+    }
+    
+    delete[] students;
+
+    return 0;
+}
